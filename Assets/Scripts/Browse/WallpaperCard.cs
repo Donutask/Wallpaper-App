@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Threading.Tasks;
 
-public class WallpaperCard : MonoBehaviour
+public class WallpaperCard : MonoBehaviour, Card<Wallpaper>
 {
     [SerializeField] Image wallpaperImage;
     [SerializeField] TextMeshProUGUI wallpaperName;
@@ -22,5 +22,10 @@ public class WallpaperCard : MonoBehaviour
         }
 
         button.onClick.AddListener(() => WallpaperScreen.ShowFullPreview(photo));
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

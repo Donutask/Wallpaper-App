@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class CardsManager : MonoBehaviour
 {
@@ -12,12 +13,12 @@ public class CardsManager : MonoBehaviour
     /// </summary>
     public static API api;
     public static CardsManager Instance;
+    [SerializeField] RecycleView<Wallpaper> wallpaperCardManager;
 
-    [SerializeField] GameObject template;
-    [SerializeField] Transform parent;
     [SerializeField] GameObject loadMoreButton, loadingIndicator, noAPIError;
+    [SerializeField] GridLayoutGroup gridLayout;
+
     static WallpaperPage cached;
-    List<WallpaperCard> createdCards;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class CardsManager : MonoBehaviour
         if (cached != null)
         {
             //show old results
-            CreateCards(cached.content);
+            wallpaperCardManager.CreateCards(cached.content);
         }
         else
         {
@@ -55,6 +56,12 @@ public class CardsManager : MonoBehaviour
         await GetWallpapersAndShow(api.SearchWallpapers(query), true);
     }
 
+    public void ShowNewScreen(Wallpaper[] content)
+    {
+        DestroyCards();
+        wallpaperCardManager.CreateCards(content);
+    }
+
     async Task GetWallpapersAndShow(Task<WallpaperPage> task, bool destroyPrevious)
     {
         loadingIndicator.SetActive(true);
@@ -66,43 +73,21 @@ public class CardsManager : MonoBehaviour
         {
             DestroyCards();
         }
-        CreateCards(wallpapers.content);
+        wallpaperCardManager.CreateCards(wallpapers.content);
 
         loadingIndicator.SetActive(false);
         loadMoreButton.SetActive(true);
     }
 
-    void CreateCards(Wallpaper[] wallpapers)
-    {
-        if (createdCards == null)
-        {
-            createdCards = new();
-        }
-        foreach (var item in wallpapers)
-        {
-            if (item == null)
-            {
-                continue;
-            }
-            GameObject obj = Instantiate(template, parent);
-            WallpaperCard card = obj.GetComponent<WallpaperCard>();
-
-            card.ApplyCardValues(item);
-
-            createdCards.Add(card);
-        }
-    }
-
     public void DestroyCards()
     {
-        if (createdCards != null)
-            foreach (var item in createdCards)
-            {
-                Destroy(item.gameObject);
-            }
-
-        createdCards = new();
-
         loadMoreButton.SetActive(false);
+        wallpaperCardManager.DestroyCards();
+    }
+
+    const int cellWidth = 300;
+    public void ChangeGrid(float aspectRatio)
+    {
+        gridLayout.cellSize = new Vector2(cellWidth, cellWidth * aspectRatio);
     }
 }

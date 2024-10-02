@@ -76,6 +76,14 @@ MonoBehaviour:
     m_Localized: Applied!
     m_Metadata:
       m_Items: []
+  - m_Id: 69946401873920
+    m_Localized: Explore wallpapers by category.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69925325496320
+    m_Localized: Collections
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

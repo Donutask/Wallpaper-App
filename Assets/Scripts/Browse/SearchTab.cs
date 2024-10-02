@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class SearchTab : ScreenTab
 {
@@ -16,6 +17,9 @@ public class SearchTab : ScreenTab
         exitSearchButton.SetActive(false);
 
         CardsManager.Instance.DestroyCards();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(searchContainer);
     }
 
     public override void OnClosed()

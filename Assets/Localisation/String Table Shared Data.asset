@@ -73,6 +73,14 @@ MonoBehaviour:
     m_Key: Wallpaper Applied
     m_Metadata:
       m_Items: []
+  - m_Id: 69925325496320
+    m_Key: Collections Default Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69946401873920
+    m_Key: Collections Default Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
