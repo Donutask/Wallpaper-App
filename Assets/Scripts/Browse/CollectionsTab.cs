@@ -43,12 +43,15 @@ public class CollectionsTab : ScreenTab
         CardsManager.Instance.ChangeGrid(2);
         CardsManager.Instance.DestroyCards();
         CardsManager.Instance.ShowScreen(collection.wallpapers, destroyPrevious: true);
+        CardsManager.Instance.SetLoadMoreAction(CardsManager.Instance.LoadMoreWallpapers);
 
         loadingIndicator.SetActive(false);
     }
 
     public async void LoadMoreCollections()
     {
+        loadingIndicator.SetActive(true);
+
         ShowCollectionCards(await CardsManager.api.NextCollectionsPage(currentCollectionPage.nextPageURL));
     }
 
@@ -56,7 +59,6 @@ public class CollectionsTab : ScreenTab
     {
         base.OnOpened();
         MainCollectionScreen();
-        CardsManager.Instance.SetLoadMoreAction(LoadMoreCollections);
     }
 
     public override void OnClosed()
@@ -84,11 +86,15 @@ public class CollectionsTab : ScreenTab
 
         currentCollectionPage = await CardsManager.api.GetCollections();
         ShowCollectionCards(currentCollectionPage);
+
+        CardsManager.Instance.SetLoadMoreAction(LoadMoreCollections);
     }
 
     void ShowCollectionCards(CollectionPage collections)
     {
         loadingIndicator.SetActive(true);
+
+        currentCollectionPage = collections;
 
         CardsManager.Instance.ChangeGrid(1);
 

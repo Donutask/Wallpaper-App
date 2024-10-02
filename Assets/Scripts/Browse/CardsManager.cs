@@ -73,8 +73,6 @@ public class CardsManager : MonoBehaviour
         }
     }
 
-
-
     async Task GetWallpapersAndShow(Task<WallpaperPage> task, bool destroyPrevious)
     {
         loadingIndicator.SetActive(true);

@@ -14,19 +14,20 @@ public class RecycleView<T> : MonoBehaviour
         {
             createdCards = new();
         }
-        foreach (var item in items)
-        {
-            if (item == null)
+        if (items != null)
+            foreach (var item in items)
             {
-                continue;
+                if (item == null)
+                {
+                    continue;
+                }
+                GameObject obj = Instantiate(template, parent);
+                Card<T> card = obj.GetComponent<Card<T>>();
+
+                card.ApplyCardValues(item);
+
+                createdCards.Add(card);
             }
-            GameObject obj = Instantiate(template, parent);
-            Card<T> card = obj.GetComponent<Card<T>>();
-
-            card.ApplyCardValues(item);
-
-            createdCards.Add(card);
-        }
     }
 
     public void DestroyCards()
