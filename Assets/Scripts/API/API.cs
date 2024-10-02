@@ -3,8 +3,11 @@ using System.Threading.Tasks;
 
 public interface API
 {
-    public Task<Page> GetCuratedWallpapers();
-    public Task<Page> SearchWallpapers(string query);
-    public Task<Page> NextPage(string nextPageURL);
+    public Task<WallpaperPage> GetCuratedWallpapers();
+    public Task<WallpaperPage> SearchWallpapers(string query);
+    public Task<WallpaperPage> NextPage(string nextPageURL);
+
+    public Task<CollectionPage> GetCollections();
+
 }
 

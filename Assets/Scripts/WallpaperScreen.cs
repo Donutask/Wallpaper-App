@@ -15,6 +15,7 @@ public class WallpaperScreen : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI downloadButtonLabel;
     [SerializeField] GameObject artistButton, applyMenu, loadingSpinner;
+    [SerializeField] Animator applyMenuAnimator;
 
     [SerializeField] LocalizedString attributionString, downloadingString, appliedString;
 

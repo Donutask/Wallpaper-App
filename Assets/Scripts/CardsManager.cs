@@ -16,8 +16,9 @@ public class CardsManager : MonoBehaviour
     [SerializeField] Transform parent;
     [SerializeField] TMP_InputField searchBox;
     [SerializeField] GameObject exitSearchButton, loadMoreButton, loadingIndicator, noAPIError;
-    Page cached;
+    static WallpaperPage cached;
     string previousSearch;
+    List<WallpaperCard> createdCards;
 
     private void Start()
     {
@@ -28,7 +29,15 @@ public class CardsManager : MonoBehaviour
         }
         else
         {
-            ShowCurated();
+            if (cached != null)
+            {
+                //show old results
+                CreateCards(cached.content);
+            }
+            else
+            {
+                ShowCurated();
+            }
         }
     }
 
@@ -40,6 +49,10 @@ public class CardsManager : MonoBehaviour
     public async void Search()
     {
         string query = searchBox.text;
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return;
+        }
         if (query == previousSearch)
         {
             return;
@@ -65,25 +78,24 @@ public class CardsManager : MonoBehaviour
         await GetWallpapersAndShow(api.NextPage(cached.nextPageURL));
     }
 
-    async Task GetWallpapersAndShow(Task<Page> task)
+    async Task GetWallpapersAndShow(Task<WallpaperPage> task)
     {
         loadingIndicator.SetActive(true);
 
         var wallpapers = await task;
         cached = wallpapers;
 
-        CreateCards(wallpapers.wallpapers);
+        CreateCards(wallpapers.content);
 
         loadingIndicator.SetActive(false);
         loadMoreButton.SetActive(true);
     }
 
-    List<WallpaperCard> cards;
     void CreateCards(Wallpaper[] wallpapers)
     {
-        if (cards == null)
+        if (createdCards == null)
         {
-            cards = new();
+            createdCards = new();
         }
         foreach (var item in wallpapers)
         {
@@ -96,18 +108,18 @@ public class CardsManager : MonoBehaviour
 
             card.ApplyCardValues(item);
 
-            cards.Add(card);
+            createdCards.Add(card);
         }
     }
 
     void DestroyCards()
     {
-        if (cards != null)
-            foreach (var item in cards)
+        if (createdCards != null)
+            foreach (var item in createdCards)
             {
                 Destroy(item.gameObject);
             }
 
-        cards = new();
+        createdCards = new();
     }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 
+//future idea
 public class Collection
 {
-    //future idea
     public string title, description;
-
+    public WallpaperPage wallpapers;
 }

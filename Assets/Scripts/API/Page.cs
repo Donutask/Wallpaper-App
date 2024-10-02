@@ -3,21 +3,21 @@ using UnityEngine;
 /// <summary>
 /// A collection of wallpapers.
 /// </summary>
-public class Page
+public class Page<T>
 {
     public int pageNumber;
-    public Wallpaper[] wallpapers;
+    public T[] content;
     public int itemCount
     {
         get
         {
-            if (wallpapers == null)
+            if (content == null)
             {
                 return 0;
             }
             else
             {
-                return wallpapers.Length;
+                return content.Length;
             }
         }
     }
@@ -26,10 +26,10 @@ public class Page
     /// </summary>
     public string nextPageURL;
 
-    public Page(int pageNumber, Wallpaper[] wallpapers, string nextPage)
+    public Page(int pageNumber, T[] content, string nextPage)
     {
         this.pageNumber = pageNumber;
-        this.wallpapers = wallpapers;
+        this.content = content;
         this.nextPageURL = nextPage;
     }
 }
