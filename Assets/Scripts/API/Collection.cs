@@ -1,16 +1,8 @@
 using UnityEngine;
 
-public class Collection : MonoBehaviour
+public class Collection
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //future idea
+    public string title, description;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: String Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 9aab39d3edaee41029471d2315a49bea, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 28004311040
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21134041088
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6466560000
+    m_Localized: Search
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60170428416
+    m_Localized: Load More
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480414523392
+    m_Localized: Support Artist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 506612146176
+    m_Localized: Get Wallpaper
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

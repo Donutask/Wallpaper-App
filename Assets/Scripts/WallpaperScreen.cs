@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.Localization;
 
 public class WallpaperScreen : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class WallpaperScreen : MonoBehaviour
     [SerializeField] Image wallpaperImage;
     [SerializeField] TextMeshProUGUI artistName;
     [SerializeField] AspectRatioFitter aspectRatioFitter;
+    [SerializeField] LocalizedString attributionString;
 
     public static void ShowFullPreview(Wallpaper p)
     {
@@ -20,7 +22,7 @@ public class WallpaperScreen : MonoBehaviour
 
     private async void Start()
     {
-        artistName.text = "By " + selectedWallpaper.artist;
+        artistName.text = attributionString.GetLocalizedString(selectedWallpaper.artist);
 
         aspectRatioFitter.aspectRatio = (float)selectedWallpaper.width / (float)selectedWallpaper.height;
 
@@ -50,7 +52,7 @@ public class WallpaperScreen : MonoBehaviour
         {
             await File.WriteAllBytesAsync(WallpaperDownloadPath, bytes);
 
-            WallpaperChanger.SetWallpaper(WallpaperDownloadPath);
+            WallpaperChanger.SetWallpaper(WallpaperDownloadPath, WallpaperChanger.WallpaperTarget.HomeScreen);
         }
     }
 
