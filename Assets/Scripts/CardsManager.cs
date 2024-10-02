@@ -3,18 +3,19 @@ using System.Threading.Tasks;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class CardsManager : MonoBehaviour
 {
     /// <summary>
-    /// Assign the api through some other script
+    /// Assign the api through another script
     /// </summary>
     public static API api;
 
     [SerializeField] GameObject template;
     [SerializeField] Transform parent;
     [SerializeField] TMP_InputField searchBox;
-    [SerializeField] GameObject exitSearchButton, loadMoreButton, loadingIndicator;
+    [SerializeField] GameObject exitSearchButton, loadMoreButton, loadingIndicator, noAPIError;
     Page cached;
     string previousSearch;
 
@@ -22,9 +23,13 @@ public class CardsManager : MonoBehaviour
     {
         if (api == null)
         {
-            Debug.LogError("No API provided. Please implement the interface 'API' and assign it to the CardsManager.api field. This app doesn't do anything if not hooked up to any pictures.");
+            noAPIError.SetActive(true);
+            throw new System.Exception("No API provided. Please implement the interface 'API' and assign it to the CardsManager.api field. This app doesn't do anything if not hooked up to any pictures.");
         }
-        ShowCurated();
+        else
+        {
+            ShowCurated();
+        }
     }
 
     async void ShowCurated()

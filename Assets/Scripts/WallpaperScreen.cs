@@ -14,7 +14,7 @@ public class WallpaperScreen : MonoBehaviour
     [SerializeField] AspectRatioFitter aspectRatioFitter;
 
     [SerializeField] TextMeshProUGUI downloadButtonLabel;
-    [SerializeField] GameObject applyMenu, loadingSpinner;
+    [SerializeField] GameObject artistButton, applyMenu, loadingSpinner;
 
     [SerializeField] LocalizedString attributionString, downloadingString, appliedString;
 
@@ -36,7 +36,15 @@ public class WallpaperScreen : MonoBehaviour
     {
         loadingSpinner.SetActive(true);
 
-        artistName.text = attributionString.GetLocalizedString(selectedWallpaper.artist);
+        if (selectedWallpaper.artist != null)
+        {
+            artistName.text = attributionString.GetLocalizedString(selectedWallpaper.artist);
+        }
+        else
+        {
+            artistButton.SetActive(false);
+            artistName.enabled = false;
+        }
 
         aspectRatioFitter.aspectRatio = selectedWallpaper.aspectRatio;
 
