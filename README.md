@@ -10,3 +10,7 @@ Implement API
 Free image API's (very understanably) do not allow them to be used to make a competing service, like a wallpaper app.
 I've not included any code that would break a platform's Terms of Service.
 You'll have to implement the API interface yourself. Good luck!
+
+## Credits
+https://github.com/yasirkula/UnityNativeGallery
+Whoever ChatGPT stole code from
