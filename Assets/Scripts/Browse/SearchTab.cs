@@ -26,12 +26,14 @@ public class SearchTab : ScreenTab
 
         searchColour = null;
         CardsManager.Instance.DestroyCards();
+        CardsManager.Instance.ChangeGrid(2);
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(searchContainer);
 
         noSearchIndicator.SetActive(true);
         colourChooser.SetActive(true);
+
 
         CardsManager.Instance.SetLoadMoreAction(CardsManager.Instance.LoadMoreWallpapers);
     }
