@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 9aab39d3edaee41029471d2315a49bea, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7103151926118449526
   m_TableData:
   - m_Id: 28004311040
     m_Localized: Loading...
@@ -42,6 +43,45 @@ MonoBehaviour:
     m_Localized: Get Wallpaper
     m_Metadata:
       m_Items: []
+  - m_Id: 5683436052480
+    m_Localized: Downloading...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6646783795200
+    m_Localized: Both
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6633437519872
+    m_Localized: Lock Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6606610751488
+    m_Localized: Home Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9365888163840
+    m_Localized: Just Download
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10705146208256
+    m_Localized: Apply Wallpaper To
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11920101859328
+    m_Localized: 'By: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 7103151926118449526
+  - m_Id: 12107352367104
+    m_Localized: Applied!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7103151926118449526
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 11920101859328

@@ -24,23 +24,23 @@ public class SpriteReference
         return cached;
     }
 
-    public async Task<Texture2D> GetTexture()
-    {
-        return await GetTextureFromURL(url);
-    }
+    //public async Task<Texture2D> GetTexture()
+    //{
+    //    return await GetTextureFromURL(url);
+    //}
 
-    /// <summary>
-    /// Bytes of image encoded to png.
-    /// </summary>
-    public async Task<byte[]> GetBytes()
-    {
-        var tex = await GetTextureFromURL(url);
-        if (tex == null)
-        {
-            return null;
-        }
-        return tex.EncodeToPNG();
-    }
+    ///// <summary>
+    ///// Bytes of image encoded to png.
+    ///// </summary>
+    //public async Task<byte[]> GetBytes()
+    //{
+    //    var tex = await GetTextureFromURL(url);
+    //    if (tex == null)
+    //    {
+    //        return null;
+    //    }
+    //    return tex.EncodeToPNG();
+    //}
 
     static async Task<Sprite> GetSprite(string url)
     {

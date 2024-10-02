@@ -17,7 +17,7 @@ public class Wallpaper
     public int width, height;
 
 
-    public Wallpaper(string artist, string originalURL, string previewURL, string thumbnailURL, string artistURL)
+    public Wallpaper(string artist, string artistURL, string originalURL, string previewURL, string thumbnailURL, int width, int height)
     {
         this.artist = artist;
         this.artistURL = artistURL;
