@@ -7,6 +7,7 @@ public class CollectionsTab : ScreenTab
 {
     public static CollectionsTab Instance;
     [SerializeField] GameObject collectionHeader;
+    [SerializeField] LayoutElement collectionHeaderLayout;
     [SerializeField] GameObject backButton;
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI description;
@@ -21,12 +22,25 @@ public class CollectionsTab : ScreenTab
 
     public void ShowCollection(Collection collection)
     {
+        Debug.Log(collection);
+
         loadingIndicator.SetActive(true);
 
         collectionHeader.SetActive(true);
         backButton.SetActive(true);
         title.text = collection.title;
-        description.text = collection.description;
+
+        if (string.IsNullOrWhiteSpace(collection.description))
+        {
+            description.gameObject.SetActive(false);
+            collectionHeaderLayout.minHeight = 150;
+        }
+        else
+        {
+            description.gameObject.SetActive(true);
+            description.text = collection.description;
+            collectionHeaderLayout.minHeight = 200;
+        }
 
         CardsManager.Instance.ChangeGrid(2);
         collectionCardManager.DestroyCards();
@@ -71,6 +85,8 @@ public class CollectionsTab : ScreenTab
     {
         CardsManager.Instance.ChangeGrid(1);
         collectionCardManager.DestroyCards();
-        collectionCardManager.CreateCards(collections.content);
+
+        if (collections != null)
+            collectionCardManager.CreateCards(collections.content);
     }
 }

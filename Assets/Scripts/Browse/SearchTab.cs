@@ -7,8 +7,18 @@ public class SearchTab : ScreenTab
     [SerializeField] TMP_InputField searchBox;
     [SerializeField] GameObject exitSearchButton;
     [SerializeField] GameObject searchContainer;
+    [SerializeField] GameObject noSearchIndicator;
+    [SerializeField] GameObject colourChooser;
+    [SerializeField] ColourChipData[] colours;
+    [SerializeField] ColourChips colourChips;
+    public static Color32 searchColour;
 
     string previousSearch;
+
+    private void Start()
+    {
+        colourChips.CreateCards(colours);
+    }
 
     public override void OnOpened()
     {
@@ -20,6 +30,9 @@ public class SearchTab : ScreenTab
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(searchContainer);
+
+        noSearchIndicator.SetActive(true);
+        colourChooser.SetActive(true);
     }
 
     public override void OnClosed()
@@ -27,6 +40,7 @@ public class SearchTab : ScreenTab
         base.OnClosed();
         searchContainer.SetActive(false);
         exitSearchButton.SetActive(false);
+        noSearchIndicator.SetActive(false);
     }
 
     public async void Search()
@@ -45,5 +59,6 @@ public class SearchTab : ScreenTab
         await CardsManager.Instance.Search(query);
 
         exitSearchButton.SetActive(true);
+        colourChooser.SetActive(false);
     }
 }

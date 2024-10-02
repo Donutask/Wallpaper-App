@@ -13,7 +13,7 @@ public class Collection
         this.description = description;
         this.wallpapers = wallpapers;
 
-        if (wallpapers != null && wallpapers.content.Length > 0)
+        if (wallpapers != null && wallpapers.content != null && wallpapers.content.Length > 0)
             thumbnail = wallpapers.content[0].thumbnail;
     }
 }

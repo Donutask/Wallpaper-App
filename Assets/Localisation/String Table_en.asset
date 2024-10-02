@@ -84,6 +84,46 @@ MonoBehaviour:
     m_Localized: Collections
     m_Metadata:
       m_Items: []
+  - m_Id: 85303527202816
+    m_Localized: Type text above to find new wallpapers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88018017837056
+    m_Localized: Red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88051295444992
+    m_Localized: Orange
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88109386555392
+    m_Localized: Yellow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88129942839296
+    m_Localized: Lime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88200478449664
+    m_Localized: Cyan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88227674316800
+    m_Localized: Indigo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88256648568832
+    m_Localized: Purple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88285631209472
+    m_Localized: Pink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88303700271104
+    m_Localized: Brown
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

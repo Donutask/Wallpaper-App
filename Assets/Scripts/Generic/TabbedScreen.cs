@@ -17,7 +17,7 @@ public class TabbedScreen : MonoBehaviour
         {
             item.OnClosed();
         }
-        SelectTab(0);
+        SelectTab(2);
     }
 
     public void SelectTab(int t)

@@ -81,6 +81,46 @@ MonoBehaviour:
     m_Key: Collections Default Description
     m_Metadata:
       m_Items: []
+  - m_Id: 85303527202816
+    m_Key: Search Box Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88018017837056
+    m_Key: Colour Red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88051295444992
+    m_Key: Colour Orange
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88109386555392
+    m_Key: Colour Yellow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88129942839296
+    m_Key: Colour Light Green
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88200478449664
+    m_Key: Colour Cyan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88227674316800
+    m_Key: Colour Indigo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88256648568832
+    m_Key: Colour Purple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88285631209472
+    m_Key: Colour Pink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88303700271104
+    m_Key: Colour Brown
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

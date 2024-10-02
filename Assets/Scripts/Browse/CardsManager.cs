@@ -51,9 +51,16 @@ public class CardsManager : MonoBehaviour
         await GetWallpapersAndShow(api.NextPage(cached.nextPageURL), false);
     }
 
-    public async Task Search(string query)
+    public async Task Search(string query, Color32? colour = null)
     {
-        await GetWallpapersAndShow(api.SearchWallpapers(query), true);
+        if (colour == null)
+        {
+            await GetWallpapersAndShow(api.SearchWallpapers(query), true);
+        }
+        else
+        {
+            await GetWallpapersAndShow(api.SearchWallpapersWithColour(query, colour.Value), true);
+        }
     }
 
     public void ShowNewScreen(Wallpaper[] content)
