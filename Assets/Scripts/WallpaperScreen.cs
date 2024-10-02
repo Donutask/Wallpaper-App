@@ -12,9 +12,11 @@ public class WallpaperScreen : MonoBehaviour
     [SerializeField] Image wallpaperImage;
     [SerializeField] TextMeshProUGUI artistName;
     [SerializeField] AspectRatioFitter aspectRatioFitter;
+
     [SerializeField] TextMeshProUGUI downloadButtonLabel;
+    [SerializeField] GameObject applyMenu, loadingSpinner;
+
     [SerializeField] LocalizedString attributionString, downloadingString, appliedString;
-    [SerializeField] GameObject applyMenu;
 
     public static string WallpaperDownloadPath
     {
@@ -32,13 +34,17 @@ public class WallpaperScreen : MonoBehaviour
 
     private async void Start()
     {
+        loadingSpinner.SetActive(true);
+
         artistName.text = attributionString.GetLocalizedString(selectedWallpaper.artist);
 
-        aspectRatioFitter.aspectRatio = (float)selectedWallpaper.width / (float)selectedWallpaper.height;
+        aspectRatioFitter.aspectRatio = selectedWallpaper.aspectRatio;
 
         //load existing thumbnail, then switch to higher res preview
         wallpaperImage.sprite = await selectedWallpaper.thumbnail.Get(cacheOnly: true);
         wallpaperImage.sprite = await selectedWallpaper.preview.Get();
+
+        loadingSpinner.SetActive(false);
     }
 
     public void Donate()
@@ -58,6 +64,7 @@ public class WallpaperScreen : MonoBehaviour
         canDownload = true;
 
         downloadButtonLabel.text = downloadingString.GetLocalizedString();
+        loadingSpinner.SetActive(true);
 
         var sprite = await selectedWallpaper.original.Get();
         wallpaperImage.sprite = sprite;
@@ -67,6 +74,7 @@ public class WallpaperScreen : MonoBehaviour
         {
             await File.WriteAllBytesAsync(WallpaperDownloadPath, bytes);
             applyMenu.SetActive(true);
+            loadingSpinner.SetActive(false);
         }
     }
 

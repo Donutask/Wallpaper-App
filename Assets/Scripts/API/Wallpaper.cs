@@ -16,6 +16,18 @@ public class Wallpaper
     /// </summary>
     public int width, height;
 
+    public float aspectRatio
+    {
+        get
+        {
+            if (width == 0 || height == 0)
+            {
+                return 1;
+            }
+            return (float)width / (float)height;
+        }
+    }
+
 
     public Wallpaper(string artist, string artistURL, string originalURL, string previewURL, string thumbnailURL, int width, int height)
     {
@@ -25,6 +37,9 @@ public class Wallpaper
         this.original = new SpriteReference(originalURL);
         this.preview = new SpriteReference(previewURL);
         this.thumbnail = new SpriteReference(thumbnailURL);
+
+        this.width = width;
+        this.height = height;
     }
 
 }
