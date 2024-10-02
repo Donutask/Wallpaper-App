@@ -11,15 +11,18 @@ public class CardsManager : MonoBehaviour
     /// Assign the api through another script
     /// </summary>
     public static API api;
+    public static CardsManager Instance;
 
     [SerializeField] GameObject template;
     [SerializeField] Transform parent;
-    [SerializeField] TMP_InputField searchBox;
-    [SerializeField] GameObject exitSearchButton, loadMoreButton, loadingIndicator, noAPIError;
+    [SerializeField] GameObject loadMoreButton, loadingIndicator, noAPIError;
     static WallpaperPage cached;
-    string previousSearch;
     List<WallpaperCard> createdCards;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         if (api == null)
@@ -27,64 +30,42 @@ public class CardsManager : MonoBehaviour
             noAPIError.SetActive(true);
             throw new System.Exception("No API provided. Please implement the interface 'API' and assign it to the CardsManager.api field. This app doesn't do anything if not hooked up to any pictures.");
         }
+    }
+
+    public async void ShowHome()
+    {
+        if (cached != null)
+        {
+            //show old results
+            CreateCards(cached.content);
+        }
         else
         {
-            if (cached != null)
-            {
-                //show old results
-                CreateCards(cached.content);
-            }
-            else
-            {
-                ShowCurated();
-            }
+            await GetWallpapersAndShow(api.GetCuratedWallpapers(), true);
         }
-    }
-
-    async void ShowCurated()
-    {
-        await GetWallpapersAndShow(api.GetCuratedWallpapers());
-    }
-
-    public async void Search()
-    {
-        string query = searchBox.text;
-        if (string.IsNullOrWhiteSpace(query))
-        {
-            return;
-        }
-        if (query == previousSearch)
-        {
-            return;
-        }
-        previousSearch = query;
-
-        DestroyCards();
-        await GetWallpapersAndShow(api.SearchWallpapers(query));
-
-        exitSearchButton.SetActive(true);
-    }
-
-    public void ExitSearch()
-    {
-        exitSearchButton.SetActive(false);
-
-        DestroyCards();
-        ShowCurated();
     }
 
     public async void LoadMore()
     {
-        await GetWallpapersAndShow(api.NextPage(cached.nextPageURL));
+        await GetWallpapersAndShow(api.NextPage(cached.nextPageURL), false);
     }
 
-    async Task GetWallpapersAndShow(Task<WallpaperPage> task)
+    public async Task Search(string query)
+    {
+        await GetWallpapersAndShow(api.SearchWallpapers(query), true);
+    }
+
+    async Task GetWallpapersAndShow(Task<WallpaperPage> task, bool destroyPrevious)
     {
         loadingIndicator.SetActive(true);
 
         var wallpapers = await task;
         cached = wallpapers;
 
+        if (destroyPrevious)
+        {
+            DestroyCards();
+        }
         CreateCards(wallpapers.content);
 
         loadingIndicator.SetActive(false);
@@ -112,7 +93,7 @@ public class CardsManager : MonoBehaviour
         }
     }
 
-    void DestroyCards()
+    public void DestroyCards()
     {
         if (createdCards != null)
             foreach (var item in createdCards)
@@ -121,5 +102,7 @@ public class CardsManager : MonoBehaviour
             }
 
         createdCards = new();
+
+        loadMoreButton.SetActive(false);
     }
 }
