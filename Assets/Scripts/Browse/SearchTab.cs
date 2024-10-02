@@ -55,6 +55,7 @@ public class SearchTab : ScreenTab
             return;
         }
         previousSearch = query;
+        noSearchIndicator.SetActive(false);
 
         await CardsManager.Instance.Search(query);
 

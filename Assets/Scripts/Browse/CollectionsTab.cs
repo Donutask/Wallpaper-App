@@ -76,6 +76,8 @@ public class CollectionsTab : ScreenTab
         title.text = defaultTitle.GetLocalizedString();
         description.text = defaultDescription.GetLocalizedString();
 
+        collectionCardManager.DestroyCards();
+
         ShowCollectionCards(await CardsManager.api.GetCollections());
 
         loadingIndicator.SetActive(false);

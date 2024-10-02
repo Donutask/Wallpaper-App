@@ -75,7 +75,7 @@ public class WallpaperScreen : MonoBehaviour
         downloadButtonLabel.text = downloadingString.GetLocalizedString();
         loadingSpinner.SetActive(true);
 
-        var sprite = await selectedWallpaper.original.Get();
+        var sprite = await selectedWallpaper.original.Get(false, useFileCache: false);
         wallpaperImage.sprite = sprite;
 
         var bytes = sprite.texture.EncodeToPNG();
