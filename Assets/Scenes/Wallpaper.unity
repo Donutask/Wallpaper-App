@@ -781,7 +781,7 @@ MonoBehaviour:
   artistButton: {fileID: 1251800410}
   applyMenu: {fileID: 335232373}
   loadingSpinner: {fileID: 1713962873}
-  applyMenuAnimator: {fileID: 0}
+  applyMenuAnimator: {fileID: 335232378}
   attributionString:
     m_TableReference:
       m_TableCollectionName: GUID:9aab39d3edaee41029471d2315a49bea

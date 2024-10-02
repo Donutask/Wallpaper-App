@@ -33,3 +33,11 @@ public class Page<T>
         this.nextPageURL = nextPage;
     }
 }
+
+///// <summary>
+///// I need a base class
+///// </summary>
+//public interface IPage
+//{
+
+//}

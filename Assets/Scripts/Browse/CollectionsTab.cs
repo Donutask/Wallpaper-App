@@ -12,8 +12,8 @@ public class CollectionsTab : ScreenTab
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] LocalizedString defaultTitle, defaultDescription;
-    [SerializeField] RecycleView<Collection> collectionCardManager;
     [SerializeField] GameObject loadingIndicator;
+    static CollectionPage currentCollectionPage;
 
     private void Awake()
     {
@@ -22,8 +22,6 @@ public class CollectionsTab : ScreenTab
 
     public void ShowCollection(Collection collection)
     {
-        Debug.Log(collection);
-
         loadingIndicator.SetActive(true);
 
         collectionHeader.SetActive(true);
@@ -43,16 +41,22 @@ public class CollectionsTab : ScreenTab
         }
 
         CardsManager.Instance.ChangeGrid(2);
-        collectionCardManager.DestroyCards();
-        CardsManager.Instance.ShowNewScreen(collection.wallpapers.content);
+        CardsManager.Instance.DestroyCards();
+        CardsManager.Instance.ShowScreen(collection.wallpapers, destroyPrevious: true);
 
         loadingIndicator.SetActive(false);
+    }
+
+    public async void LoadMoreCollections()
+    {
+        ShowCollectionCards(await CardsManager.api.NextCollectionsPage(currentCollectionPage.nextPageURL));
     }
 
     public override void OnOpened()
     {
         base.OnOpened();
         MainCollectionScreen();
+        CardsManager.Instance.SetLoadMoreAction(LoadMoreCollections);
     }
 
     public override void OnClosed()
@@ -76,19 +80,24 @@ public class CollectionsTab : ScreenTab
         title.text = defaultTitle.GetLocalizedString();
         description.text = defaultDescription.GetLocalizedString();
 
-        collectionCardManager.DestroyCards();
+        CardsManager.Instance.DestroyCards();
 
-        ShowCollectionCards(await CardsManager.api.GetCollections());
-
-        loadingIndicator.SetActive(false);
+        currentCollectionPage = await CardsManager.api.GetCollections();
+        ShowCollectionCards(currentCollectionPage);
     }
 
     void ShowCollectionCards(CollectionPage collections)
     {
+        loadingIndicator.SetActive(true);
+
         CardsManager.Instance.ChangeGrid(1);
-        collectionCardManager.DestroyCards();
 
         if (collections != null)
-            collectionCardManager.CreateCards(collections.content);
+            CardsManager.Instance.collectionCardManager.CreateCards(collections.content);
+
+        CardsManager.Instance.loadMoreButton.gameObject.SetActive(true);
+
+        loadingIndicator.SetActive(false);
     }
+
 }

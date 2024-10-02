@@ -8,7 +8,8 @@ public class TabbedScreen : MonoBehaviour
     [SerializeField] Color32 selectedTabColour;
     [SerializeField] Color32 deselectedTabColour;
 
-    int previousTab;
+    //Static to persist between scenes
+    static int previousTab = 0;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class TabbedScreen : MonoBehaviour
         {
             item.OnClosed();
         }
-        SelectTab(0);
+        SelectTab(previousTab);
     }
 
     public void SelectTab(int t)

@@ -9,6 +9,7 @@ public interface API
     public Task<WallpaperPage> NextPage(string nextPageURL);
 
     public Task<CollectionPage> GetCollections();
-
+    //too tired to make the code better
+    public Task<CollectionPage> NextCollectionsPage(string nextPageURL);
 }
 

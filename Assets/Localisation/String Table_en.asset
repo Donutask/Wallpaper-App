@@ -124,6 +124,14 @@ MonoBehaviour:
     m_Localized: Brown
     m_Metadata:
       m_Items: []
+  - m_Id: 97471018557440
+    m_Localized: Black
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97497518170112
+    m_Localized: White
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

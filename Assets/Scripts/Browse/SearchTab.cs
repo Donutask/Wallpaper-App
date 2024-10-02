@@ -5,13 +5,12 @@ using UnityEngine.EventSystems;
 public class SearchTab : ScreenTab
 {
     [SerializeField] TMP_InputField searchBox;
-    [SerializeField] GameObject exitSearchButton;
     [SerializeField] GameObject searchContainer;
     [SerializeField] GameObject noSearchIndicator;
     [SerializeField] GameObject colourChooser;
     [SerializeField] ColourChipData[] colours;
     [SerializeField] ColourChips colourChips;
-    public static Color32 searchColour;
+    public static Color32? searchColour;
 
     string previousSearch;
 
@@ -24,8 +23,8 @@ public class SearchTab : ScreenTab
     {
         base.OnOpened();
         searchContainer.SetActive(true);
-        exitSearchButton.SetActive(false);
 
+        searchColour = null;
         CardsManager.Instance.DestroyCards();
 
         EventSystem.current.SetSelectedGameObject(null);
@@ -33,14 +32,16 @@ public class SearchTab : ScreenTab
 
         noSearchIndicator.SetActive(true);
         colourChooser.SetActive(true);
+
+        CardsManager.Instance.SetLoadMoreAction(CardsManager.Instance.LoadMoreWallpapers);
     }
 
     public override void OnClosed()
     {
         base.OnClosed();
         searchContainer.SetActive(false);
-        exitSearchButton.SetActive(false);
         noSearchIndicator.SetActive(false);
+        colourChooser.SetActive(false);
     }
 
     public async void Search()
@@ -57,9 +58,9 @@ public class SearchTab : ScreenTab
         previousSearch = query;
         noSearchIndicator.SetActive(false);
 
-        await CardsManager.Instance.Search(query);
+        await CardsManager.Instance.Search(query, searchColour);
 
-        exitSearchButton.SetActive(true);
-        colourChooser.SetActive(false);
+        //exitSearchButton.SetActive(true);
+        //colourChooser.SetActive(false);
     }
 }

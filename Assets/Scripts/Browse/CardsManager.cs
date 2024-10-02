@@ -14,11 +14,13 @@ public class CardsManager : MonoBehaviour
     public static API api;
     public static CardsManager Instance;
     [SerializeField] RecycleView<Wallpaper> wallpaperCardManager;
+    public RecycleView<Collection> collectionCardManager;
 
-    [SerializeField] GameObject loadMoreButton, loadingIndicator, noAPIError;
+    public Button loadMoreButton;
+    [SerializeField] GameObject loadingIndicator, noAPIError;
     [SerializeField] GridLayoutGroup gridLayout;
 
-    static WallpaperPage cached;
+    static WallpaperPage currentPage;
 
     private void Awake()
     {
@@ -35,23 +37,31 @@ public class CardsManager : MonoBehaviour
 
     public async void ShowHome()
     {
-        if (cached != null)
-        {
-            //show old results
-            wallpaperCardManager.CreateCards(cached.content);
-        }
-        else
-        {
-            await GetWallpapersAndShow(api.GetCuratedWallpapers(), true);
-        }
+        await GetWallpapersAndShow(api.GetCuratedWallpapers(), true);
+
+        //API implementation should cache stuff for you
+        //if (cached != null)
+        //{
+        //    //show old results
+        //    wallpaperCardManager.CreateCards(cached.content);
+        //}
+        //else
+        //{
+        //}
     }
 
-    public async void LoadMore()
+    public void SetLoadMoreAction(UnityEngine.Events.UnityAction action)
     {
-        await GetWallpapersAndShow(api.NextPage(cached.nextPageURL), false);
+        loadMoreButton.onClick.RemoveAllListeners();
+        loadMoreButton.onClick.AddListener(action);
     }
 
-    public async Task Search(string query, Color32? colour = null)
+    public async void LoadMoreWallpapers()
+    {
+        await GetWallpapersAndShow(api.NextPage(currentPage.nextPageURL), false);
+    }
+
+    public async Task Search(string query, Color32? colour)
     {
         if (colour == null)
         {
@@ -63,36 +73,45 @@ public class CardsManager : MonoBehaviour
         }
     }
 
-    public void ShowNewScreen(Wallpaper[] content)
-    {
-        DestroyCards();
-        wallpaperCardManager.CreateCards(content);
-    }
+
 
     async Task GetWallpapersAndShow(Task<WallpaperPage> task, bool destroyPrevious)
     {
         loadingIndicator.SetActive(true);
 
-        var wallpapers = await task;
-        cached = wallpapers;
+        ShowScreen(await task, destroyPrevious);
+
+        loadingIndicator.SetActive(false);
+    }
+
+    public void ShowScreen(WallpaperPage page, bool destroyPrevious)
+    {
+        currentPage = page;
 
         if (destroyPrevious)
         {
             DestroyCards();
         }
-        wallpaperCardManager.CreateCards(wallpapers.content);
+        wallpaperCardManager.CreateCards(page.content);
 
-        loadingIndicator.SetActive(false);
-        loadMoreButton.SetActive(true);
+        loadMoreButton.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Destroys all cards and hides page button
+    /// </summary>
     public void DestroyCards()
     {
-        loadMoreButton.SetActive(false);
+        loadMoreButton.gameObject.SetActive(false);
         wallpaperCardManager.DestroyCards();
+        collectionCardManager.DestroyCards();
     }
 
     const int cellWidth = 300;
+    /// <summary>
+    /// Set grid to aspect ratio. 1 is square, 2 is rectangle
+    /// </summary>
+    /// <param name="aspectRatio"></param>
     public void ChangeGrid(float aspectRatio)
     {
         gridLayout.cellSize = new Vector2(cellWidth, cellWidth * aspectRatio);

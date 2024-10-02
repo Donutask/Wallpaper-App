@@ -7,5 +7,6 @@ public class HomeTab : ScreenTab
     {
         CardsManager.Instance.ChangeGrid(2f);
         CardsManager.Instance.ShowHome();
+        CardsManager.Instance.SetLoadMoreAction(CardsManager.Instance.LoadMoreWallpapers);
     }
 }

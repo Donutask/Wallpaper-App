@@ -17,7 +17,18 @@ public class ColourChipCard : MonoBehaviour, Card<ColourChipData>
 
         label.color = IsDarkColour(item.colour) ? Color.white : Color.black;
 
-        button.onClick.AddListener(() => SearchTab.searchColour = item.colour);
+        //select colour, select again = no colour
+        button.onClick.AddListener(() =>
+        {
+            if (SearchTab.searchColour.HasValue && SearchTab.searchColour.Value.Equals(item.colour))
+            {
+                SearchTab.searchColour = null;
+            }
+            else
+            {
+                SearchTab.searchColour = item.colour;
+            }
+        });
     }
 
     private static bool IsDarkColour(Color32 colour)
